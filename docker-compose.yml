@@ -1,0 +1,17 @@
+services:
+  weaviate:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.24.1
+    ports:
+      - "8090:8080"    # Host:Container - using 8090 to avoid conflict
+      - "50052:50051"  # Host:Container - using 50052 to avoid conflict
+    environment:
+      - QUERY_DEFAULTS_LIMIT=25
+      - AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true
+      - PERSISTENCE_DATA_PATH=/var/lib/weaviate
+      - DEFAULT_VECTORIZER_MODULE=none
+      - ENABLE_MODULES=
+      - CLUSTER_HOSTNAME=node1
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+volumes:
+  weaviate_data:
